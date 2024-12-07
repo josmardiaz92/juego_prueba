@@ -5,12 +5,7 @@ var score=0
 var time:int
 var axis:Vector2
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func get_axis()->Vector2:
+	axis.x=int(Input.is_action_pressed("ui_right"))-int(Input.is_action_pressed("ui_left"))
+	axis.y=int(Input.is_action_pressed("ui_down"))-int(Input.is_action_pressed("ui_up"))
+	return axis.normalized()

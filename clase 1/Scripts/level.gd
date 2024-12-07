@@ -10,14 +10,7 @@ func _process(_delta: float) -> void:
 		motion_ctrl()
 
 func motion_ctrl():
-	if Input.is_action_pressed("ui_down"):
-		$Player.position.y += SPEED
-	elif Input.is_action_pressed("ui_up"):
-		$Player.position.y -= SPEED
-	elif Input.is_action_pressed("ui_right"):
-		$Player.position.x += SPEED
-	elif Input.is_action_pressed("ui_left"):
-		$Player.position.x -= SPEED
+	Player.position+=GLOBAL.get_axis()*SPEED
 
 
 func _on_button_pressed() -> void:
