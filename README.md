@@ -1,2 +1,0 @@
-# juego_prueba
- juego
