@@ -22,4 +22,11 @@ text = "TEST"
 
 [node name="Dead" parent="." groups=["player"] instance=ExtResource("3_b2duo")]
 
+[node name="visibilidad" type="Button" parent="."]
+offset_left = 989.0
+offset_top = 459.0
+offset_right = 1082.0
+offset_bottom = 607.0
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="visibilidad" to="." method="_on_visibilidad_pressed"]
