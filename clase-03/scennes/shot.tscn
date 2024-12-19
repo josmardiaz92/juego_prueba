@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://diq71r4bfstat"]
+
+[ext_resource type="Script" path="res://scripts/shot.gd" id="1_xckwh"]
+
+[node name="Shot" type="Area2D"]
+script = ExtResource("1_xckwh")

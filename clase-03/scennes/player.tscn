@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfqrawwo8y5p4"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_mogrm"]
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_mogrm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="flash" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+
+[node name="Marker2D" type="Marker2D" parent="AnimatedSprite2D"]
+
+[node name="Node" type="Node" parent="."]
+
+[node name="fireSound" type="AudioStreamPlayer" parent="Node"]
+
+[node name="damageSound" type="AudioStreamPlayer" parent="Node"]
+
+[node name="footstepSound" type="AudioStreamPlayer" parent="Node"]
+
+[node name="jumpSound" type="AudioStreamPlayer" parent="Node"]
+
+[node name="ShortTimer" type="Timer" parent="Node"]
+
+[node name="DamageTimer" type="Timer" parent="Node"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

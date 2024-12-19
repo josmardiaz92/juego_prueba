@@ -1,0 +1,133 @@
+[gd_scene load_steps=5 format=3 uid="uid://53sg8fhuhgeg"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_km1om"]
+[ext_resource type="Theme" uid="uid://cxq8wir4cfx51" path="res://assets/ui/Fonts/menu.tres" id="1_pp3ns"]
+[ext_resource type="Texture2D" uid="uid://dg6jus4imbxyw" path="res://assets/others/mountain_landscape_illustration-wallpaper-1600x900.jpg" id="3_jh22k"]
+[ext_resource type="AudioStream" uid="uid://dvwye0gn8tlcb" path="res://assets/audio/Of Far Different Nature - Choppin (CC-BY).ogg" id="4_ui66w"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_pp3ns")
+script = ExtResource("1_km1om")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_jh22k")
+expand_mode = 1
+
+[node name="LineEdit" type="LineEdit" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -162.5
+offset_right = 208.0
+offset_bottom = -65.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.5
+offset_top = -45.0
+offset_right = 66.5
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="start" type="Button" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+text = "START"
+
+[node name="exit" type="Button" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+text = "EXIT"
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -165.0
+offset_top = -40.0
+offset_right = 165.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer"]
+layout_mode = 2
+text = "Desarrollado para el nivel 1"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ui66w")
+autoplay = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = -203.0
+offset_right = 238.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.74902, 0, 0, 0.686275)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -129.5
+offset_top = 45.0
+offset_right = 129.5
+offset_bottom = 106.0
+grow_horizontal = 2
+text = "The nickname
+can´t be empty"
+
+[node name="Button" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -29.0
+offset_top = -62.0
+offset_right = 29.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+disabled = true
+text = "ok"
+
+[connection signal="pressed" from="TextureRect/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="ColorRect/Button" to="." method="_on_button_pressed"]

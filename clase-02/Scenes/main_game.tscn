@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://bctyrx0yal8a4"]
+[gd_scene load_steps=12 format=3 uid="uid://bctyrx0yal8a4"]
 
 [ext_resource type="Script" path="res://Resources/Scripts/main_gmae.gd" id="1_l5da6"]
 [ext_resource type="Texture2D" uid="uid://bvyb3e043t87b" path="res://Assets/Images/grass.png" id="2_1w3u3"]
 [ext_resource type="Texture2D" uid="uid://b22mpvfxuedy3" path="res://Assets/Images/apple.png" id="3_x4w6h"]
 [ext_resource type="Texture2D" uid="uid://orqvefjmq4nb" path="res://Assets/Images/Snake_spritesheet.png" id="4_ls5rx"]
 [ext_resource type="Texture2D" uid="uid://cowyqpeoy07ew" path="res://Assets/Images/obstacle.png" id="5_cxr5a"]
+[ext_resource type="PackedScene" uid="uid://4qsre7gjy78g" path="res://Scenes/gui.tscn" id="6_fxy4l"]
+[ext_resource type="PackedScene" uid="uid://narb6n4xerr4" path="res://Scenes/audios.tscn" id="7_pnu4e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qj88c"]
 resource_name = "apple"
@@ -148,3 +150,9 @@ format = 2
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
 autostart = true
+
+[node name="GUI" parent="." instance=ExtResource("6_fxy4l")]
+
+[node name="audios" parent="." instance=ExtResource("7_pnu4e")]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
