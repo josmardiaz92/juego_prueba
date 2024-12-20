@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://brnblbsl6gvrm"]
+[gd_scene load_steps=6 format=3 uid="uid://brnblbsl6gvrm"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_iqwcq"]
+[ext_resource type="PackedScene" uid="uid://dlgkirxqmm8hu" path="res://scennes/environment.tscn" id="2_vm157"]
+[ext_resource type="PackedScene" uid="uid://bfqrawwo8y5p4" path="res://scennes/player.tscn" id="3_57u76"]
+[ext_resource type="PackedScene" uid="uid://diq71r4bfstat" path="res://scennes/shot.tscn" id="4_0lx6u"]
+[ext_resource type="PackedScene" uid="uid://c1dsbo4lsx4k7" path="res://scennes/gui.tscn" id="5_ft01i"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_iqwcq")
+
+[node name="Environment" parent="." instance=ExtResource("2_vm157")]
+
+[node name="player" parent="." node_paths=PackedStringArray("gui") instance=ExtResource("3_57u76")]
+position = Vector2(156, 464)
+gui = NodePath("../GUI")
+shot = ExtResource("4_0lx6u")
+
+[node name="GUI" parent="." instance=ExtResource("5_ft01i")]
+
+[node name="Shot" parent="." instance=ExtResource("4_0lx6u")]

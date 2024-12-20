@@ -1,28 +1,148 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfqrawwo8y5p4"]
+[gd_scene load_steps=18 format=3 uid="uid://bfqrawwo8y5p4"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_mogrm"]
+[ext_resource type="Texture2D" uid="uid://bemfi7ypq4tho" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_climb1.png" id="2_xidyy"]
+[ext_resource type="Texture2D" uid="uid://bybypkq4x3esn" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_climb2.png" id="3_np4ou"]
+[ext_resource type="Texture2D" uid="uid://cdvk686ikpob2" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_stand.png" id="4_e6rsj"]
+[ext_resource type="Texture2D" uid="uid://ce75xlybh8sgb" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_badge1.png" id="5_2i8ko"]
+[ext_resource type="Texture2D" uid="uid://b2gneol3miyi6" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_badge2.png" id="6_voq6v"]
+[ext_resource type="Texture2D" uid="uid://c47dgn3kh6awr" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_jump.png" id="7_ho8tk"]
+[ext_resource type="Texture2D" uid="uid://bfmih6qh8qeg0" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_walk1.png" id="8_yh7cq"]
+[ext_resource type="Texture2D" uid="uid://do3n68nkqb5ri" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienPink_walk2.png" id="9_fghy7"]
+[ext_resource type="Texture2D" uid="uid://vcgcixhmrl5v" path="res://assets/Objects/bullet/flash.png" id="10_61h6m"]
+[ext_resource type="AudioStream" uid="uid://v6qqbxdrl7xy" path="res://assets/audio/shot 2.wav" id="11_m5evw"]
+[ext_resource type="AudioStream" uid="uid://gtv7v4dn2wln" path="res://assets/audio/Hit damage 1.wav" id="12_gnmno"]
+[ext_resource type="AudioStream" uid="uid://x8wulv1in2i2" path="res://assets/audio/walking-cartoon.mp3" id="13_kph5m"]
+[ext_resource type="AudioStream" uid="uid://bd5dybufele7a" path="res://assets/audio/Balloon start riding 1.wav" id="14_cvayk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_at2fw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xidyy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_np4ou")
+}],
+"loop": true,
+"name": &"climb",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_e6rsj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2i8ko")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_voq6v")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"dead",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_e6rsj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_e6rsj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ho8tk")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_yh7cq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_fghy7")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_um0rl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_61h6m")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"shot",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lcx20"]
+radius = 23.0
+height = 74.0
 
 [node name="player" type="CharacterBody2D"]
+collision_mask = 14
+floor_stop_on_slope = false
+floor_max_angle = 0.872665
+floor_snap_length = 18.0
 script = ExtResource("1_mogrm")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Alien" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_at2fw")
+animation = &"jump"
+autoplay = "idle"
+frame = 1
+frame_progress = 1.0
 
-[node name="flash" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+[node name="flash" type="AnimatedSprite2D" parent="Alien"]
+position = Vector2(60, -1)
+scale = Vector2(3.375, 3)
+sprite_frames = SubResource("SpriteFrames_um0rl")
+animation = &"shot"
+autoplay = "shot"
 
-[node name="Marker2D" type="Marker2D" parent="AnimatedSprite2D"]
+[node name="Marker2D" type="Marker2D" parent="Alien"]
+position = Vector2(100, -1)
 
 [node name="Node" type="Node" parent="."]
 
 [node name="fireSound" type="AudioStreamPlayer" parent="Node"]
+stream = ExtResource("11_m5evw")
 
 [node name="damageSound" type="AudioStreamPlayer" parent="Node"]
+stream = ExtResource("12_gnmno")
 
 [node name="footstepSound" type="AudioStreamPlayer" parent="Node"]
+stream = ExtResource("13_kph5m")
 
 [node name="jumpSound" type="AudioStreamPlayer" parent="Node"]
+stream = ExtResource("14_cvayk")
 
 [node name="ShortTimer" type="Timer" parent="Node"]
+one_shot = true
 
 [node name="DamageTimer" type="Timer" parent="Node"]
+one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_lcx20")
+
+[connection signal="animation_finished" from="Alien" to="." method="_on_alien_animation_finished"]
+[connection signal="timeout" from="Node/ShortTimer" to="." method="_on_short_timer_timeout"]
+[connection signal="timeout" from="Node/DamageTimer" to="." method="_on_damage_timer_timeout"]
