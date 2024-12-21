@@ -17,7 +17,7 @@ var can_shot:bool=true
 @export var gravity:int=16
 @export var jump_force:int=364
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	is_on_ground=is_on_floor()
 	match deadth:
 		true:

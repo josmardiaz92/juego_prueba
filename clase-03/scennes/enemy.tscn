@@ -1,6 +1,75 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg8f2vgbr1i7"]
+[gd_scene load_steps=9 format=3 uid="uid://cg8f2vgbr1i7"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_c00dp"]
+[ext_resource type="Texture2D" uid="uid://bm8i8ut6rtutr" path="res://assets/kenney_platformer-art-extended-enemies/Enemy sprites/bee.png" id="2_7ba4d"]
+[ext_resource type="Texture2D" uid="uid://s46877x2lf30" path="res://assets/kenney_platformer-art-extended-enemies/Enemy sprites/bee_dead.png" id="3_mq3hs"]
+[ext_resource type="Texture2D" uid="uid://bgs3dohdr0mkb" path="res://assets/kenney_platformer-art-extended-enemies/Enemy sprites/bee_fly.png" id="4_iw0oc"]
+[ext_resource type="AudioStream" uid="uid://gtv7v4dn2wln" path="res://assets/audio/Hit damage 1.wav" id="5_2eu7t"]
 
-[node name="Enemy" type="CharacterBody2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_7bnud"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7ba4d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mq3hs")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7ba4d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_iw0oc")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jnfem"]
+radius = 23.6008
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5llar"]
+height = 70.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 21
+floor_stop_on_slope = false
+floor_block_on_wall = false
+floor_max_angle = 0.872665
 script = ExtResource("1_c00dp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7bnud")
+animation = &"fly"
+autoplay = "fly"
+frame = 1
+frame_progress = 0.771066
+
+[node name="RayCast2D" type="RayCast2D" parent="AnimatedSprite2D"]
+position = Vector2(-33, -19)
+target_position = Vector2(0, 73)
+collision_mask = 4
+
+[node name="damageArea" type="Area2D" parent="AnimatedSprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/damageArea"]
+shape = SubResource("CircleShape2D_jnfem")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_5llar")
+
+[node name="setings" type="Node" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="setings"]
+stream = ExtResource("5_2eu7t")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="AnimatedSprite2D/damageArea" to="." method="_on_damage_area_body_entered"]

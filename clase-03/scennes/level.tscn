@@ -1,21 +1,71 @@
-[gd_scene load_steps=6 format=3 uid="uid://brnblbsl6gvrm"]
+[gd_scene load_steps=10 format=3 uid="uid://brnblbsl6gvrm"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_iqwcq"]
 [ext_resource type="PackedScene" uid="uid://dlgkirxqmm8hu" path="res://scennes/environment.tscn" id="2_vm157"]
 [ext_resource type="PackedScene" uid="uid://bfqrawwo8y5p4" path="res://scennes/player.tscn" id="3_57u76"]
 [ext_resource type="PackedScene" uid="uid://diq71r4bfstat" path="res://scennes/shot.tscn" id="4_0lx6u"]
+[ext_resource type="PackedScene" uid="uid://d1xq8vppqvqah" path="res://scennes/camara.tscn" id="5_dpec1"]
 [ext_resource type="PackedScene" uid="uid://c1dsbo4lsx4k7" path="res://scennes/gui.tscn" id="5_ft01i"]
+[ext_resource type="PackedScene" uid="uid://cg8f2vgbr1i7" path="res://scennes/enemy.tscn" id="7_ejm76"]
+
+[sub_resource type="Curve2D" id="Curve2D_gvule"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 264, 62, 0, 0, 0, 0, 686, 46, 0, 0, 0, 0, 2255, 89, 0, 0, 0, 0, 34, 89)
+}
+point_count = 4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2i4f"]
+size = Vector2(35, 93)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_iqwcq")
+enemy = ExtResource("7_ejm76")
 
 [node name="Environment" parent="." instance=ExtResource("2_vm157")]
 
 [node name="player" parent="." node_paths=PackedStringArray("gui") instance=ExtResource("3_57u76")]
-position = Vector2(156, 464)
+position = Vector2(126, 86)
 gui = NodePath("../GUI")
 shot = ExtResource("4_0lx6u")
 
+[node name="Camara" parent="player" node_paths=PackedStringArray("player") instance=ExtResource("5_dpec1")]
+position = Vector2(3, 0)
+player = NodePath("..")
+
 [node name="GUI" parent="." instance=ExtResource("5_ft01i")]
 
-[node name="Shot" parent="." instance=ExtResource("4_0lx6u")]
+[node name="enemys" type="Node" parent="."]
+
+[node name="Enemy" parent="enemys" instance=ExtResource("7_ejm76")]
+position = Vector2(1070, 441)
+
+[node name="Enemy2" parent="enemys" instance=ExtResource("7_ejm76")]
+position = Vector2(360, 467)
+
+[node name="Enemy3" parent="enemys" instance=ExtResource("7_ejm76")]
+position = Vector2(2125, 560)
+
+[node name="Enemy4" parent="enemys" instance=ExtResource("7_ejm76")]
+position = Vector2(1801, 564)
+
+[node name="Settings" type="Node" parent="."]
+
+[node name="Path2D" type="Path2D" parent="Settings"]
+curve = SubResource("Curve2D_gvule")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Settings/Path2D"]
+position = Vector2(264, 62)
+rotation = -0.0378965
+
+[node name="Respawn" type="Timer" parent="Settings"]
+autostart = true
+
+[node name="Stairs" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stairs"]
+position = Vector2(418.5, 591.5)
+shape = SubResource("RectangleShape2D_y2i4f")
+
+[connection signal="timeout" from="Settings/Respawn" to="." method="_on_respawn_timeout"]
+[connection signal="body_entered" from="Stairs" to="." method="_on_stairs_body_entered"]
+[connection signal="body_exited" from="Stairs" to="." method="_on_stairs_body_exited"]

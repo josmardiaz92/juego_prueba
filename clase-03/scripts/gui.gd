@@ -1,11 +1,25 @@
 extends CanvasLayer
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	%restart.disabled=true
+	%exit.disabled=true
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$MarginContainer/HBoxContainer/username.text = str(GLOBAL.user_name)
+	$MarginContainer/HBoxContainer/health.text = "health: " + str(GLOBAL.health)
+	$MarginContainer/HBoxContainer/score.text = "score: " + str(GLOBAL.score)
+
+
+func game_over():
+	get_tree().paused=true
+	%restart.disabled=false
+	%exit.disabled=false
+	var tween:Tween=create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.tween_property($ColorRect,"modulate",Color(1,1,1,0.8),1.0)
+
+
+func _on_restart_pressed() -> void:
+	get_tree().reload_current_scene()
+
+func _on_exit_pressed() -> void:
+	get_tree().change_scene_to_file("res://scennes/menu.tscn")

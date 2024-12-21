@@ -1,11 +1,8 @@
 extends Camera2D
 
+#categoria de export para la configuracion
+@export_category("Config")
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+#grupo de exportacion para rederencias requeridas
+@export_group("Required References")
+@export var player:CharacterBody2D

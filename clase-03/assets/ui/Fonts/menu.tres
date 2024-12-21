@@ -6,7 +6,7 @@
 Button/constants/h_separation = 4
 Button/font_sizes/font_size = 30
 Button/fonts/font = ExtResource("1_qjfhw")
-Label/font_sizes/font_size = 25
+Label/font_sizes/font_size = 50
 Label/fonts/font = ExtResource("1_qjfhw")
 LineEdit/font_sizes/font_size = 40
 LineEdit/fonts/font = null
